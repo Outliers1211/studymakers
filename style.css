@@ -1,9 +1,30 @@
-/* style.css */
 body {
-  background-color: #f0f0f0;
   font-family: Arial, sans-serif;
-  padding: 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+  padding: 50px;
 }
+
 h1 {
-  color: #007acc;
+  color: #333;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
 }
