@@ -58,3 +58,4 @@ function endGame() {
 }
 
 window.onload = startGame;
+
