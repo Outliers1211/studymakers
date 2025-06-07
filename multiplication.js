@@ -21,9 +21,9 @@ function generateProblem() {
 
 function checkAnswer() {
   const userAnswer = parseInt(answerInput.value);
-  const correctAnswer = num1 * num2;
+  if (isNaN(userAnswer)) return;
 
-  if (isNaN(userAnswer)) return; // Don't proceed if nothing typed
+  const correctAnswer = num1 * num2;
 
   if (userAnswer === correctAnswer) {
     score++;
@@ -39,7 +39,6 @@ function checkAnswer() {
 function updateTimer() {
   timeLeft--;
   timeEl.textContent = timeLeft;
-
   if (timeLeft <= 0) {
     clearInterval(timerInterval);
     endGame();
@@ -51,12 +50,10 @@ function startGame() {
   timeLeft = 60;
   scoreEl.textContent = score;
   timeEl.textContent = timeLeft;
-  resultEl.textContent = "";
   answerInput.disabled = false;
   checkBtn.disabled = false;
-
+  resultEl.textContent = "";
   generateProblem();
-
   clearInterval(timerInterval);
   timerInterval = setInterval(updateTimer, 1000);
 }
@@ -76,6 +73,5 @@ answerInput.addEventListener("keydown", function (e) {
     checkAnswer();
   }
 });
-
 
 window.onload = startGame;
