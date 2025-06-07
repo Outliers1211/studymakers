@@ -69,5 +69,12 @@ function endGame() {
 checkBtn.addEventListener("click", checkAnswer);
 restartBtn.addEventListener("click", startGame);
 
+answerInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    checkAnswer();
+  }
+});
+
+
 // Start game on load
 window.onload = startGame;
