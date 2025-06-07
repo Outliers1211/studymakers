@@ -8,14 +8,18 @@
 <body>
 
   <h1>곱셈 연습하기</h1>
-  <p>문제를 보고 답을 입력하세요!</p>
+  <p>제한 시간 안에 최대한 많이 맞혀보세요!</p>
 
-  <div id="problem"></div>
+  <div><strong>점수:</strong> <span id="score">0</span></div>
+  <div><strong>남은 시간:</strong> <span id="time">60</span>초</div>
+
+  <div id="problem" style="margin-top: 20px;"></div>
 
   <input type="number" id="answerInput" placeholder="답 입력" />
   <button onclick="checkAnswer()">확인</button>
 
   <p id="result"></p>
+  <button onclick="startGame()">다시 시작</button>
 
   <script src="multiplication.js"></script>
 </body>
