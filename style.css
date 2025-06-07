@@ -1,30 +1,28 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f3f3f3;
+  padding: 40px;
   text-align: center;
-  padding: 50px;
 }
 
 h1 {
   color: #333;
 }
 
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
+.problem-box {
+  font-size: 28px;
+  margin: 20px;
+  font-weight: bold;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-#message {
-  margin-top: 20px;
+input, button {
   font-size: 18px;
-  color: #555;
+  padding: 10px;
+  margin: 5px;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #444;
 }
