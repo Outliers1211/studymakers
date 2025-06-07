@@ -23,7 +23,9 @@ function checkAnswer() {
   const userAnswer = parseInt(answerInput.value);
   const correctAnswer = num1 * num2;
 
-  if (!isNaN(userAnswer) && userAnswer === correctAnswer) {
+  if (isNaN(userAnswer)) return; // Don't proceed if nothing typed
+
+  if (userAnswer === correctAnswer) {
     score++;
     resultEl.textContent = "정답입니다! 🎉";
   } else {
@@ -55,7 +57,7 @@ function startGame() {
 
   generateProblem();
 
-  clearInterval(timerInterval); // Prevent overlapping timers
+  clearInterval(timerInterval);
   timerInterval = setInterval(updateTimer, 1000);
 }
 
@@ -76,5 +78,4 @@ answerInput.addEventListener("keydown", function (e) {
 });
 
 
-// Start game on load
 window.onload = startGame;
