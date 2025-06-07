@@ -34,9 +34,11 @@ function checkAnswer() {
     document.getElementById("result").textContent = `틀렸습니다. 정답은 ${correctAnswer}입니다.`;
   }
 
-  setTimeout(generateProblem, 2000); // 2초 후 다음 문제
+  setTimeout(generateProblem, 2000);
 }
 
-generateProblem(); // 첫 문제 생성
+// 첫 문제 생성
+window.onload = generateProblem;
+
 
 
