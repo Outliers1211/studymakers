@@ -10,65 +10,14 @@
   <h1>전에는 없었던 복합학습터</h1>
   <p>바로 시작하기:</p>
 
-  <button onclick="showMessage()">바로가기</button>
-  <p id="message"></p>
+  <button onclick="location.href='multiplication.html'">곱셈 연습 바로가기</button>
 
-  <!-- 입력 공간 -->
   <div id="inputArea" style="margin-top: 20px;">
     <input type="text" id="userInput" placeholder="여기에 입력하세요" />
     <button onclick="handleInput()">확인</button>
     <p id="inputResult"></p>
   </div>
 
-  <script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
-
-
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <title>스터디메이커즈 - 곱셈 연습</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 30px;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
-    h1 {
-      color: #333;
-    }
-    #problem {
-      font-size: 24px;
-      margin: 20px 0;
-    }
-    input, button {
-      font-size: 18px;
-      padding: 8px;
-      margin: 5px;
-    }
-    #result {
-      font-size: 20px;
-      margin-top: 15px;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>곱셈 연습하기</h1>
-  <p>문제를 보고 답을 입력하세요!</p>
-
-  <div id="problem"></div>
-
-  <input type="number" id="answerInput" placeholder="답 입력" />
-  <button onclick="checkAnswer()">확인</button>
-
-  <p id="result"></p>
-
-  <script src="script.js"></script>
-</body>
-</html>
-
