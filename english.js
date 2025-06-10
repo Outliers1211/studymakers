@@ -115,7 +115,6 @@ let score = 0;
 let timeLeft = 60;
 let timerInterval;
 let usedWords = [];
-
 // DOM 요소들
 const bodyEl = document.getElementById("mainBody");
 const problemEl = document.getElementById("problem");
@@ -128,7 +127,7 @@ const restartBtn = document.getElementById("restartBtn");
 
 function generateProblem() {
   // 사용하지 않은 단어 중에서 랜덤 선택
-  let availableWords = wordDatabase.filter(word => !usedWords.includes(word.english));
+  let availableWords = wordDatabase.filter(word => !usedWords.includes(word.korean));
   
   // 모든 단어를 사용했으면 초기화
   if (availableWords.length === 0) {
@@ -138,9 +137,9 @@ function generateProblem() {
   
   const randomIndex = Math.floor(Math.random() * availableWords.length);
   currentWord = availableWords[randomIndex];
-  usedWords.push(currentWord.english);
+  usedWords.push(currentWord.korean);
   
-  problemEl.textContent = `${currentWord.english} = ?`;
+  problemEl.textContent = `${currentWord.korean} = ?`;
   answerInput.value = "";
   answerInput.focus();
 }
@@ -149,7 +148,7 @@ function checkAnswer() {
   const userAnswer = answerInput.value.trim();
   if (userAnswer === "") return;
   
-  const correctAnswer = currentWord.korean;
+  const correctAnswer = currentWord.english;
   
   if (userAnswer === correctAnswer) {
     score++;
