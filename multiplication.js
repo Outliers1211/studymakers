@@ -3,6 +3,7 @@ let score = 0;
 let timeLeft = 60;
 let timerInterval;
 
+const bodyEl = document.getElementById("mainBody");
 const problemEl = document.getElementById("problem");
 const answerInput = document.getElementById("answerInput");
 const checkBtn = document.getElementById("checkBtn");
@@ -29,9 +30,11 @@ function checkAnswer() {
     score++;
     resultEl.textContent = "정답입니다! 🎉";
     resultEl.style.color = 'blue';
+    mainBody.style.backgroundColor = '#7fffd4';
   } else {
     resultEl.textContent = `틀렸습니다. 정답은 ${correctAnswer}입니다.`;
     resultEl.style.color = 'red';
+    mainBody.style.backgroundColor = '#ffc0cb';
   }
 
   scoreEl.textContent = score;
