@@ -60,7 +60,7 @@ function startGame() {
   answerInput.disabled = false;
   checkBtn.disabled = false;
   resultEl.textContent = "";
-  bodyEl.style.backgroundColor = 'c2e9fb';
+  bodyEl.style.backgroundColor = '#c2e9fb';
   generateProblem();
   clearInterval(timerInterval);
   timerInterval = setInterval(updateTimer, 1000);
