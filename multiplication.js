@@ -13,8 +13,8 @@ const timeEl = document.getElementById("time");
 const restartBtn = document.getElementById("restartBtn");
 
 function generateProblem() {
-  num1 = Math.floor(Math.random() * 10) + 1;
-  num2 = Math.floor(Math.random() * 10) + 1;
+  num1 = Math.floor(Math.random() * 20) + 1;
+  num2 = Math.floor(Math.random() * 20) + 1;
   problemEl.textContent = `${num1} × ${num2} = ?`;
   answerInput.value = "";
   answerInput.focus();
