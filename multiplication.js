@@ -28,6 +28,7 @@ function checkAnswer() {
   if (userAnswer === correctAnswer) {
     score++;
     resultEl.textContent = "정답입니다! 🎉";
+    resultEl.style.color = 'blue';
   } else {
     resultEl.textContent = `틀렸습니다. 정답은 ${correctAnswer}입니다.`;
     resultEl.style.color = 'red';
