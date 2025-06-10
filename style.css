@@ -1,202 +1,58 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>문제 풀이 웹사이트</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
-      padding: 40px;
-      text-align: center;
-      transition: background 0.5s ease;
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+  padding: 40px;
+  text-align: center;
+}
 
-    h1 {
-      color: #333;
-      margin-bottom: 30px;
-    }
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
 
-    .problem-box {
-      font-size: 32px;
-      margin: 20px auto;
-      font-weight: bold;
-      background-color: white;
-      display: inline-block;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+.problem-box {
+  font-size: 32px;
+  margin: 20px auto;
+  font-weight: bold;
+  background-color: white;
+  display: inline-block;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
 
-    input, button {
-      font-size: 18px;
-      padding: 10px 20px;
-      margin: 10px;
-      border: none;
-      border-radius: 5px;
-    }
+input, button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+}
 
-    button {
-      background-color: #4CAF50;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-    }
+button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-    button:hover {
-      background-color: #45a049;
-    }
+button:hover {
+  background-color: #45a049;
+}
 
-    button:active {
-      transform: scale(0.97);
-    }
+#result {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
 
-    button:focus {
-      outline: 2px solid #333;
-      outline-offset: 2px;
-    }
+.correct {
+  color: green;
+}
 
-    input:focus {
-      outline: 2px solid #4CAF50;
-    }
+.incorrect {
+  color: red;
+}
 
-    #result {
-      margin-top: 20px;
-      font-size: 22px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
 
-    .correct {
-      color: green;
-    }
-
-    .incorrect {
-      color: red;
-    }
-
-    .correct-bg {
-      background: #d4edda !important;
-    }
-
-    .incorrect-bg {
-      background: #f8d7da !important;
-    }
-
-    #timer {
-      font-size: 48px;
-      font-weight: bold;
-      color: #ff5722;
-      margin: 20px auto;
-      display: inline-block;
-      padding: 10px 20px;
-      border: 3px solid #ff5722;
-      border-radius: 10px;
-      background-color: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      font-family: 'Orbitron', sans-serif;
-      transition: color 0.3s, border-color 0.3s;
-    }
-
-    .low-time {
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      0% { color: #ff5722; border-color: #ff5722; }
-      50% { color: red; border-color: red; }
-      100% { color: #ff5722; border-color: #ff5722; }
-    }
-
-    .fireworks {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 999;
-      background: transparent;
-      animation: explode 1s ease-out forwards;
-    }
-
-    @keyframes explode {
-      0% { background: transparent; }
-      30% { background: radial-gradient(circle, rgba(255,255,255,0.6) 10%, transparent 11%) center center / 5px 5px repeat; }
-      100% { background: transparent; }
-    }
-  </style>
-</head>
-<body>
-
-  <h1>문제를 풀어보세요!</h1>
-  
-  <div id="timer">30</div>
-
-  <div class="problem-box" id="problem">5 + 3 = ?</div>
-  
-  <div>
-    <input type="text" id="answer" placeholder="답을 입력하세요">
-    <button onclick="checkAnswer()">제출</button>
-  </div>
-
-  <div id="result"></div>
-
-  <script>
-    let correctAnswer = 8;
-    let timeLeft = 30;
-    let timerInterval = setInterval(updateTimer, 1000);
-
-    function updateTimer() {
-      const timer = document.getElementById('timer');
-      timer.textContent = timeLeft;
-
-      if (timeLeft <= 5) {
-        timer.classList.add('low-time');
-      }
-
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        showFireworks();
-        document.getElementById('result').textContent = '시간 종료!';
-      }
-
-      timeLeft--;
-    }
-
-    function checkAnswer() {
-      const userAnswer = parseInt(document.getElementById('answer').value);
-      const result = document.getElementById('result');
-
-      document.body.classList.remove('correct-bg', 'incorrect-bg');
-
-      if (userAnswer === correctAnswer) {
-        document.body.classList.add('correct-bg');
-        result.textContent = '정답입니다!';
-        result.className = 'correct';
-      } else {
-        document.body.classList.add('incorrect-bg');
-        result.textContent = '틀렸습니다!';
-        result.className = 'incorrect';
-      }
-
-      // 배경색 초기화
-      setTimeout(() => {
-        document.body.classList.remove('correct-bg', 'incorrect-bg');
-      }, 1500);
-    }
-
-    function showFireworks() {
-      const fw = document.createElement('div');
-      fw.classList.add('fireworks');
-      document.body.appendChild(fw);
-
-      setTimeout(() => {
-        fw.remove();
-      }, 1000);
-    }
-  </script>
-</body>
-</html>
