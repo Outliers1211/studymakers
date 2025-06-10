@@ -30,6 +30,7 @@ function checkAnswer() {
     resultEl.textContent = "정답입니다! 🎉";
   } else {
     resultEl.textContent = `틀렸습니다. 정답은 ${correctAnswer}입니다.`;
+    resultEl.style.color = 'red';
   }
 
   scoreEl.textContent = score;
