@@ -30,11 +30,11 @@ function checkAnswer() {
     score++;
     resultEl.textContent = "정답입니다! 🎉";
     resultEl.style.color = 'blue';
-    mainBody.style.backgroundColor = '#7fffd4';
+    bodyEl.style.backgroundColor = '#7fffd4';
   } else {
     resultEl.textContent = `틀렸습니다. 정답은 ${correctAnswer}입니다.`;
     resultEl.style.color = 'red';
-    mainBody.style.backgroundColor = '#ffc0cb';
+    bodyEl.style.backgroundColor = '#ffc0cb';
   }
 
   scoreEl.textContent = score;
