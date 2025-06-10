@@ -52,177 +52,116 @@ const wordDatabase = [
     { english: "courage", korean: "용기" }
 ];
 
-// 게임 상태 변수들
-let gameStarted = false;
 let currentWord = {};
 let score = 0;
 let timeLeft = 60;
-let timer;
+let timerInterval;
 let usedWords = [];
 
 // DOM 요소들
-const startBtn = document.getElementById('startBtn');
-const gameArea = document.getElementById('gameArea');
-const wordDisplay = document.getElementById('wordDisplay');
-const answerInput = document.getElementById('answerInput');
-const submitBtn = document.getElementById('submitBtn');
-const scoreDisplay = document.getElementById('score');
-const timerDisplay = document.getElementById('timer');
-const resultArea = document.getElementById('resultArea');
-const finalScore = document.getElementById('finalScore');
-const restartBtn = document.getElementById('restartBtn');
-const feedback = document.getElementById('feedback');
+const bodyEl = document.getElementById("mainBody");
+const problemEl = document.getElementById("problem");
+const answerInput = document.getElementById("answerInput");
+const checkBtn = document.getElementById("checkBtn");
+const resultEl = document.getElementById("result");
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const restartBtn = document.getElementById("restartBtn");
 
-// 이벤트 리스너 등록
-startBtn.addEventListener('click', startGame);
-submitBtn.addEventListener('click', checkAnswer);
-answerInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        checkAnswer();
-    }
-});
-restartBtn.addEventListener('click', restartGame);
-
-// 게임 시작 함수
-function startGame() {
-    gameStarted = true;
-    score = 0;
-    timeLeft = 60;
+function generateProblem() {
+  // 사용하지 않은 단어 중에서 랜덤 선택
+  let availableWords = wordDatabase.filter(word => !usedWords.includes(word.english));
+  
+  // 모든 단어를 사용했으면 초기화
+  if (availableWords.length === 0) {
     usedWords = [];
-    
-    // UI 업데이트
-    startBtn.style.display = 'none';
-    gameArea.style.display = 'block';
-    resultArea.style.display = 'none';
-    
-    // 첫 번째 단어 표시
-    showNextWord();
-    
-    // 타이머 시작
-    timer = setInterval(updateTimer, 1000);
-    
-    // 입력 필드에 포커스
-    answerInput.focus();
+    availableWords = wordDatabase;
+  }
+  
+  const randomIndex = Math.floor(Math.random() * availableWords.length);
+  currentWord = availableWords[randomIndex];
+  usedWords.push(currentWord.english);
+  
+  problemEl.textContent = `${currentWord.english} = ?`;
+  answerInput.value = "";
+  answerInput.focus();
 }
 
-// 다음 단어 표시 함수
-function showNextWord() {
-    // 사용하지 않은 단어 중에서 랜덤 선택
-    let availableWords = wordDatabase.filter(word => !usedWords.includes(word.english));
-    
-    // 모든 단어를 사용했으면 초기화
-    if (availableWords.length === 0) {
-        usedWords = [];
-        availableWords = wordDatabase;
-    }
-    
-    const randomIndex = Math.floor(Math.random() * availableWords.length);
-    currentWord = availableWords[randomIndex];
-    usedWords.push(currentWord.english);
-    
-    wordDisplay.textContent = currentWord.english;
-    answerInput.value = '';
-    feedback.textContent = '';
-    answerInput.focus();
-}
-
-// 답안 확인 함수
 function checkAnswer() {
-    if (!gameStarted) return;
-    
-    const userAnswer = answerInput.value.trim().toLowerCase();
-    const correctAnswer = currentWord.korean.toLowerCase();
-    
-    if (userAnswer === correctAnswer || userAnswer === currentWord.korean) {
-        // 정답
-        score += 10;
-        scoreDisplay.textContent = score;
-        feedback.textContent = '정답! 🎉';
-        feedback.style.color = '#28a745';
-        
-        // 0.5초 후 다음 단어
-        setTimeout(() => {
-            showNextWord();
-        }, 500);
-    } else {
-        // 오답
-        feedback.textContent = `틀렸습니다. 정답: ${currentWord.korean}`;
-        feedback.style.color = '#dc3545';
-        
-        // 1초 후 다음 단어
-        setTimeout(() => {
-            showNextWord();
-        }, 1000);
-    }
+  const userAnswer = answerInput.value.trim();
+  if (userAnswer === "") return;
+  
+  const correctAnswer = currentWord.korean;
+  
+  if (userAnswer === correctAnswer) {
+    score++;
+    resultEl.textContent = "정답입니다! 🎉";
+    resultEl.style.color = 'blue';
+    bodyEl.style.backgroundColor = '#7fffd4';
+  } else {
+    resultEl.textContent = `틀렸습니다. 정답은 ${correctAnswer}입니다.`;
+    resultEl.style.color = 'red';
+    bodyEl.style.backgroundColor = '#ffc0cb';
+  }
+  
+  scoreEl.textContent = score;
+  generateProblem();
 }
 
-// 타이머 업데이트 함수
 function updateTimer() {
-    timeLeft--;
-    timerDisplay.textContent = timeLeft;
-    
-    // 시간이 10초 이하일 때 빨간색으로 표시
-    if (timeLeft <= 10) {
-        timerDisplay.style.color = '#dc3545';
-    }
-    
-    // 게임 종료
-    if (timeLeft <= 0) {
-        endGame();
-    }
+  timeLeft--;
+  timeEl.textContent = timeLeft;
+  if (timeLeft <= 0) {
+    clearInterval(timerInterval);
+    endGame();
+  }
 }
 
-// 게임 종료 함수
+function startGame() {
+  score = 0;
+  timeLeft = 60;
+  usedWords = [];
+  scoreEl.textContent = score;
+  timeEl.textContent = timeLeft;
+  answerInput.disabled = false;
+  checkBtn.disabled = false;
+  resultEl.textContent = "";
+  bodyEl.style.backgroundColor = '#c2e9fb';
+  generateProblem();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
 function endGame() {
-    gameStarted = false;
-    clearInterval(timer);
-    
-    // UI 업데이트
-    gameArea.style.display = 'none';
-    resultArea.style.display = 'block';
-    finalScore.textContent = score;
-    
-    // 성적에 따른 메시지
-    let message = '';
-    if (score >= 200) {
-        message = '🏆 최고 등급! 영어 천재시네요!';
-    } else if (score >= 150) {
-        message = '🥇 우수! 훌륭한 실력입니다!';
-    } else if (score >= 100) {
-        message = '🥈 좋아요! 꾸준히 연습하세요!';
-    } else if (score >= 50) {
-        message = '🥉 괜찮아요! 더 열심히 해보세요!';
-    } else {
-        message = '📚 연습이 더 필요해요! 화이팅!';
-    }
-    
-    document.getElementById('message').textContent = message;
+  problemEl.textContent = "게임 종료!";
+  
+  // 성적에 따른 메시지
+  let message = '';
+  if (score >= 20) {
+    message = '🏆 최고 등급! 영어 천재시네요!';
+  } else if (score >= 15) {
+    message = '🥇 우수! 훌륭한 실력입니다!';
+  } else if (score >= 10) {
+    message = '🥈 좋아요! 꾸준히 연습하세요!';
+  } else if (score >= 5) {
+    message = '🥉 괜찮아요! 더 열심히 해보세요!';
+  } else {
+    message = '📚 연습이 더 필요해요! 화이팅!';
+  }
+  
+  resultEl.textContent = `최종 점수: ${score}점 - ${message}`;
+  answerInput.disabled = true;
+  checkBtn.disabled = true;
 }
 
-// 게임 재시작 함수
-function restartGame() {
-    // 초기 상태로 리셋
-    gameStarted = false;
-    score = 0;
-    timeLeft = 60;
-    usedWords = [];
-    
-    // UI 초기화
-    startBtn.style.display = 'block';
-    gameArea.style.display = 'none';
-    resultArea.style.display = 'none';
-    scoreDisplay.textContent = '0';
-    timerDisplay.textContent = '60';
-    timerDisplay.style.color = '#333';
-    feedback.textContent = '';
-    
-    // 타이머 정리
-    if (timer) {
-        clearInterval(timer);
-    }
-}
-
-// 페이지 로드 시 초기화
-document.addEventListener('DOMContentLoaded', function() {
-    restartGame();
+// 이벤트 리스너
+checkBtn.addEventListener("click", checkAnswer);
+restartBtn.addEventListener("click", startGame);
+answerInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    checkAnswer();
+  }
 });
+
+// 게임 시작
+window.onload = startGame;
