@@ -1,56 +1,95 @@
+/* 기본 레이아웃 */
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
-  padding: 40px;
-  text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+    padding: 40px;
+    text-align: center;
+    transition: background-color 0.5s;
 }
 
 h1 {
-  color: #333;
-  margin-bottom: 30px;
+    color: #333;
+    margin-bottom: 30px;
 }
 
 .problem-box {
-  font-size: 32px;
-  margin: 20px auto;
-  font-weight: bold;
-  background-color: white;
-  display: inline-block;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-size: 32px;
+    margin: 20px auto;
+    font-weight: bold;
+    background-color: white;
+    display: inline-block;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-input, button {
-  font-size: 18px;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
+.answer-buttons {
+    margin: 20px;
 }
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
+input[type="radio"] {
+    display: none;
 }
 
-button:hover {
-  background-color: #45a049;
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-#result {
-  margin-top: 20px;
-  font-size: 22px;
-  font-weight: bold;
-  transition: color 0.3s;
+.button:hover {
+    background-color: #45a049;
 }
 
-.correct {
-  color: green;
+/* 결과 기본 숨김 */
+#result .success-message,
+#result .fail-message {
+    display: none;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
-.incorrect {
-  color: red;
+/* 정답 선택 시 화면 효과 */
+#correct:checked ~ #result .success-message {
+    display: block;
+    color: green;
+    animation: pulse 0.6s ease-in-out infinite alternate;
 }
+
+#correct:checked ~ body {
+    background-color: #b9fbc0;
+}
+
+/* 오답 선택 시 화면 효과 */
+#wrong:checked ~ #result .fail-message {
+    display: block;
+    color: red;
+    animation: shake 0.5s;
+}
+
+#wrong:checked ~ body {
+    background-color: #ffadad;
+}
+
+/* 흔들림 애니메이션 */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* 심장 뛰는 애니메이션 */
+@keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
