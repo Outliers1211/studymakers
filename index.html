@@ -4,32 +4,48 @@
   <meta charset="UTF-8" />
   <title>스터디메이커즈 (Studymakers)</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .box {
+      border: 2px solid #000;
+      width: 320px;
+      padding: 20px;
+      margin: 20px auto;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    button {
+      margin: 5px;
+    }
+  </style>
 </head>
 <body id="mainBody">
 
-  <h1 style="margin-top: 100px;">전에는 없었던 복합학습터</h1>
-  <p>바로 시작하기:</p>
-
-  <button onclick="location.href='multiplication.html'">곱셈 연습 바로가기</button>
-  <button onclick="location.href='english.html'">영단어 연습 바로가기</button>
-
-  <h2 style="margin-top: 100px;">또는 로그인:</h2>
-
-  <div id="inputArea" style="margin-top: 5px;">
-    <input type="text" id="userInput" placeholder="아이디" />
-    <p id="inputResult"></p>
+  <div class="box">
+    <h1>전에는 없었던 복합학습터</h1>
   </div>
 
-  <divpswd id="inputArea" style="margin-top: 5px;">
-    <input type="password" id="userInput" placeholder="비밀번호" />
-    <p id="inputResult"></p>
-  </divpswd>
+  <div class="box">
+    <p>바로 시작하기:</p>
+    <button onclick="location.href='multiplication.html'">곱셈 연습 바로가기</button>
+    <button onclick="location.href='english.html'">영단어 연습 바로가기</button>
+  </div>
 
-  <divlogin style="margin-top: 5px;">
-    <button onclick="handleInput()">로그인</button>
-  </divlogin>
-    
-  
+  <div class="box" id="loginBox">
+    <h2>또는 로그인:</h2>
+    <div style="margin-bottom: 10px;">
+      <input type="text" id="userId" placeholder="아이디" />
+    </div>
+    <div style="margin-bottom: 10px;">
+      <input type="password" id="userPassword" placeholder="비밀번호" />
+    </div>
+    <div>
+      <button onclick="handleInput()">로그인</button>
+    </div>
+  </div>
+
   <script src="main.js"></script>
 </body>
 </html>
+
+
